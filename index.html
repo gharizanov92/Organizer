@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
+<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="menu">
+				<ul>
+					<li class="current_page_item"><a href="#" accesskey="1" title="">Начало</a></li>
+					<li><a href="notes.html" accesskey="2" title="">Бележки</a></li>
+					<li><a href="todo.html" accesskey="3" title="">TODO</a></li>
+					<li><a href="files.html" accesskey="3" title="">Файлове</a></li>
+					<li><a href="manager.html" accesskey="4" title="">Manager</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="page-wrapper">
+		<div id="page">
+			<div id="content">
+				<div class="center">
+					<div class="panel" style="width: 800px" />
+						<div class="panel-header">
+							<strong>Цел на проекта и технологии</strong>
+						</div>
+						<div class="panel-body">
+							<p>
+								Проектът ще представлява web органайзер. Ше има модули "Бележки", "TODO", "Файлове" и Manager, като по-подобна информация за всеки един от тях може да се открие на съответните линкове. Като технологии ще се използва django, за база - MongoDB и за frontend AngularJS (за странициране) и jQuerry. Текущия темплейт е просто примерен, може и да не използвам него за крайния проект.
+							</p>
+							<p>
+								Системата ще поддържа акаунти. Паролата ще се държи хеширана в базата. Примерен изглед:
+							</p>
+							<div class="center">
+								<div id="login">
+									<div class="login-header"><strong>Вход в системата</strong></div>
+									<div class="login-body">
+										<table style = "border-width: 1px" class = "align-left">
+											<tr>
+												<td>Потребителско име: </td>
+												<td>
+													<div location = "username"/>
+													<input type="text"/>
+												</td>
+											</tr>
+											<tr>
+												<td>Парола:</td>
+												<td>
+													<div location = "password"/>
+													<input type="password"/>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="login-footer">
+										<div location = "loginbutton"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class = "panel-footer">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer-wrapper">
+		<div id="footer-content">
+			<div id="fbox1">
+				&nbsp;
+			</div>
+			<div id="fbox2">
+				<a href="#">Начало</a> | <a href="#">Бележки</a> | <a href="#">TODO</a> | <a href="#">Файлове</a> | <a href="#">Manager</a>
+			</div>
+			<div id="fbox3">
+				&nbsp;
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer">
+</div>
+</body>
+</html>

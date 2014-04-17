@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="js/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$(".note-body").hide();
+		$(".note-header").click(function(){
+			$(this).parent().find('.note-body').slideToggle();
+		});
+		$(".note-body p").dblclick(function() {
+			$(this).hide();
+			console.log($(this));
+			$(this).parent().append("<textarea>"+ $(this).text() +"</textarea>");
+		})
+	});
+</script>
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
+<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="menu">
+				<ul>
+					<li><a href="index.html" accesskey="1" title="">Начало</a></li>
+					<li class="current_page_item"><a href="#" accesskey="2" title="">Бележки</a></li>
+					<li><a href="todo.html" accesskey="3" title="">TODO</a></li>
+					<li><a href="files.html" accesskey="3" title="">Файлове</a></li>
+					<li><a href="manager.html" accesskey="4" title="">Manager</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="page-wrapper">
+		<div id="page">
+			<div id="content">
+				<div class="center">
+					<div class="panel" style="width: 800px" />
+						<div class="panel-header">
+							<strong>Бележки</strong>
+						</div>
+						<div class="panel-body">
+							<p><strong>Описание</strong></p>
+							<p>
+								Пример за това, как ще изглеждат бележките. Чрез клик върху заглавие на някоя бележка, content-а и се показва. Бележките ще бъдат страницирани, с опция за избор колко елемента ще се показват. По възможност ще се добавят и категории към бележките.
+							</p>
+							<p><strong>Реализация</strong></p>
+							<p>
+								Ще се реализира нещо като REST сървис, който да връща в JSON формат фиксиран брой бележки. Това ще е с цел да се постигне динамична страница. Добавянето на нова бележка ще е по подобен начин.
+							</p>
+							<br/>
+							<div class="note" style="width: 600px">
+								<div class="note-header">
+									Lorem ipsum
+								</div>
+								<div class="note-body"><p>
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia mattis est, at molestie velit tempus eget. Aliquam erat volutpat. Aenean dignissim eros in pretium lacinia. Praesent vitae quam in ligula laoreet rutrum id eget justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In suscipit bibendum sapien sed consequat. Maecenas fermentum nec risus quis dictum. Integer blandit quam sed lacus malesuada, ut condimentum ante vehicula. Suspendisse sollicitudin, nisi non auctor auctor, enim lorem bibendum nulla, a iaculis lacus risus eu velit.
+								</p></div>
+							</div>
+							<div class = "note" style="width: 600px">
+								<div class="note-header">
+									Nunc tincidunt
+								</div>
+								<div class="note-body">
+									<p>
+										Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.
+									</p>
+								</div>
+							</div>
+							<div class = "note" style="width: 600px">
+								<div class="note-header">
+									Proin dolor
+								</div>
+								<div class="note-body">
+									<p>
+										Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer-wrapper">
+		<div id="footer-content">
+			<div id="fbox1">
+				&nbsp;
+			</div>
+			<div id="fbox2">
+				<a href="#">Начало</a> | <a href="#">Бележки</a> | <a href="#">TODO</a> | <a href="#">Файлове</a> | <a href="#">Manager</a>
+			</div>
+			<div id="fbox3">
+				&nbsp;
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer">
+</div>
+</body>
+</html>
