@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
+<link href="/css/default.css" rel="stylesheet" type="text/css" media="all" />
+<script src="js/jquery.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$("#uploader").submit(function( event ) {
+			event.preventDefault();
+			var url = $("#upload_link").val();
+			alert(url);
+			var filename = url.substring(url.lastIndexOf("/") + 1)
+		 	$.ajax({
+			    type:'POST',
+			    url:'/upload',
+			    data:{"url":url},
+			    success: function(){
+			    	$("#files").append('<li><a href="/download/' + filename +'"><img src="/download/' + filename +
+			    		'" alt="img" class="file_preview"></a><br><a href="/download/' + filename +
+			    		'" download>Download</a></li>"')
+			    	//$( "span .completed" ).text( "Not valid!" ).show().fadeOut( 1000 );
+			    }
+			});
+		});
+	});
+</script>
+
+</head>
+<body>
+
+<!--
+$.ajax({
+    type:'POST',
+    url:'http://192.168.21.42:8080/upload',
+    data:{"url":"http://hugelolcdn.com/i/28970.gif"}
+})
+-->
+
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="menu">
+				<ul>
+					<li><a href="index" accesskey="1" title="">Начало</a></li>
+					<li><a href="notes" accesskey="2" title="">Бележки</a></li>
+					<li><a href="todo" accesskey="3" title="">TODO</a></li>
+					<li class="current_page_item"><a href="files" accesskey="3" title="">Файлове</a></li>
+					<li><a href="manager" accesskey="4" title="">Manager</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="page-wrapper">
+		<div id="page">
+			<div id="content">
+				<div class="center">
+					<div class="panel" style="width: 800px" />
+						<div class="panel-header">
+							<strong>Файлове</strong>
+						</div>
+						<div class="panel-body">
+							<br/>
+								<ul id="files">
+									% for file in files:
+										% if file.split('.')[-1] in ('jpg', 'jpeg', 'png', 'gif'):
+											<li>
+												<a href='/download/${file}'><img src='/download/${file}' alt="img" class="file_preview"></a><br>
+												<a href='/download/${file}' download>Download</a>
+											</li>
+										% else:
+											<li>
+												<img src='/images/default.png' alt="img"  class="file_preview"><br>
+												<a href='/download/${file}' download>Download</a>
+											</li>
+										% endif
+									% endfor
+								</ul>
+						</div>
+						<form id = "uploader" action="/upload" method="post">
+							<div class="panel" style="width: 800px">
+								<div class="panel-header">
+									<strong>Качване</strong>
+								</div>
+								<div class="panel-body"><p>
+									<input id="upload_link" type="text" value="http://s3.amazonaws.com/design_images/images/2930/it_ssomething.png" style="width: 522px" name="url"/>
+									<input type="submit" value="Upload"/></p>
+								</div>
+								<span class="completed"></span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div id="footer-wrapper">
+		<div id="footer-content">
+			<div id="fbox1">
+				&nbsp;
+			</div>
+			<div id="fbox2">
+				<a href="#">Начало</a> | <a href="#">Бележки</a> | <a href="#">TODO</a> | <a href="#">Файлове</a> | <a href="#">Manager</a>
+			</div>
+			<div id="fbox3">
+				&nbsp;
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer">
+</div>
+</body>
+</html>

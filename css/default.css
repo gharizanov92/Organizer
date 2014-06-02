@@ -9,7 +9,7 @@ body
 {
 	margin: 10px 0px 0px 0px;
 	padding: 0;
-	background: #E6E6E6 url(images/main-bg.png) repeat;
+	background: #E6E6E6 url(/images/main-bg.png) repeat;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #8F8F8F;
@@ -32,6 +32,16 @@ p, ol, ul
 {
 	margin-top: 0px;
 	padding: 0px;
+}
+
+ul {
+	list-style-type: none;
+	display:inline-block;
+}
+
+ul li {
+	padding-bottom: 20px;
+	display:inline-block;
 }
 
 p, ol
@@ -83,6 +93,11 @@ hr
 }
 
 /** WRAPPER */
+
+.file_preview {
+	width : 128px;
+	height : 128px;
+}
 
 #wrapper
 {
