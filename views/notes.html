@@ -24,6 +24,7 @@
 <link href="default.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
+
 <div id="wrapper">
 	<div id="header-wrapper">
 		<div id="header">
@@ -47,15 +48,13 @@
 							<strong>Бележки</strong>
 						</div>
 						<div class="panel-body">
-							<p><strong>Описание</strong></p>
-							<p>
-								Пример за това, как ще изглеждат бележките. Чрез клик върху заглавие на някоя бележка, content-а и се показва. Бележките ще бъдат страницирани, с опция за избор колко елемента ще се показват. По възможност ще се добавят и категории към бележките.
-							</p>
-							<p><strong>Реализация</strong></p>
-							<p>
-								Ще се реализира нещо като REST сървис, който да връща в JSON формат фиксиран брой бележки. Това ще е с цел да се постигне динамична страница. Добавянето на нова бележка ще е по подобен начин.
-							</p>
-							<br/>
+							<form method = "POST" action = "notes/add">
+								<label>Caption: </label>
+								<input type="text" name="caption"/>
+
+								<label>Body: </label>
+								<textarea rows="4" cols="50" name = "body"></textarea>
+							</form>
 							<div class="note" style="width: 600px">
 								<div class="note-header">
 									Lorem ipsum

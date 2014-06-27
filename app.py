@@ -43,6 +43,7 @@ def file_list():
 # Define modules/routes
 import services.rest
 import services.files
+import services.notes
 
 # Serve static content
 @route('/<static_file_type>/<filename>')

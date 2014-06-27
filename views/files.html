@@ -28,6 +28,22 @@
 			    }
 			});
 		});
+
+		$.get("/files/all").success(function(data){
+			data = eval(data);
+			for(i in data){
+			    var file = data[i];
+			    var html = "";
+			    if(file['is_image']=='true'){
+			    	html = "<li><a href='" + file['url'] + "'><img src='" + file['url'] + "' alt='img' class='file_preview'></a><br><a href='"+file['url']+"' download>Download</a></li>"
+			    } else {
+			    	html = "<li><img src='" + file['thumbnail_url'] + "' alt='img' class='file_preview'></a><br/><a href='"+file['url']+"' download>" + file['name'] + "</a><br></li>"
+			    }
+			    
+			    $("#files").append(html);
+			}
+		});
+
 	});
 </script>
 
@@ -67,19 +83,6 @@ $.ajax({
 						<div class="panel-body">
 							<br/>
 								<ul id="files">
-									% for file in files:
-										% if file.split('.')[-1] in ('jpg', 'jpeg', 'png', 'gif'):
-											<li>
-												<a href='/download/${file}'><img src='/download/${file}' alt="img" class="file_preview"></a><br>
-												<a href='/download/${file}' download>Download</a>
-											</li>
-										% else:
-											<li>
-												<img src='/images/default.png' alt="img"  class="file_preview"><br>
-												<a href='/download/${file}' download>Download</a>
-											</li>
-										% endif
-									% endfor
 								</ul>
 						</div>
 						<form id = "uploader" action="/upload" method="post">
