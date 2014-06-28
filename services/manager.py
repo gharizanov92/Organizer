@@ -1,10 +1,11 @@
-from bottle import Bottle, route, run, abort, static_file, error, post, get, request, Response
+from bottle import *
 from utils.io import *
 from bson.objectid import ObjectId
 from bson.json_util import dumps
 from utils.db import *
 import datetime
 from utils.auth import abort_if_not_authorized
+
 
 @post("/reports/add")
 def add_report():
@@ -34,4 +35,3 @@ def get_categories():
 
     categories = list(categories.keys())
     return str(categories)
-    #return str(list(db.categories.find()))
