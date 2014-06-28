@@ -76,7 +76,11 @@ def manager():
     }
 
     categories = eval(get_categories())
-    return template.render(daily_report=today, monthly_report=this_month, categories=categories)
+    return template.render(
+        daily_report=today,
+        monthly_report=this_month,
+        categories=categories
+    )
 
 
 @route('/notes')
@@ -119,7 +123,8 @@ def restricted(template):
 
 
 def check_login(username, password):
-    return len(list(db.users.find({"username": username, "password": password}))) > 0
+    users = list(db.users.find({"username": username, "password": password}))
+    return len(users) > 0
 
 
 # Define modules/routes

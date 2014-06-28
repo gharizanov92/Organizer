@@ -45,7 +45,9 @@ class Tests(unittest.TestCase):
             self.assertEqual(err.code, 401)
 
     def test_notes_page_security_raises(self):
-        self.assertRaises(urllib.error.HTTPError, lambda: urllib.request.urlopen(self.base_url + "/notes"))
+        self.assertRaises(
+            urllib.error.HTTPError,
+            lambda: urllib.request.urlopen(self.base_url + "/notes"))
 
     def test_notes_page_security_raises_401(self):
         try:

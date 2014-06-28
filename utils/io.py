@@ -24,7 +24,8 @@ def is_doc(file):
 
 
 def is_archive(file):
-    extensions = ('zip', 'rar', 'iso', 'jar', 'tar', 'gz', '7z', 'bz2', 'wim', 'xz')
+    extensions = ('zip', 'rar', 'iso', 'jar', 'tar',
+                  'gz', '7z', 'bz2', 'wim', 'xz')
     return has_extension(file, extensions)
 
 
