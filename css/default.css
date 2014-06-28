@@ -138,7 +138,7 @@ hr
 	border:1px solid #e0e0e0;
 }
 
-.panel, .note {
+.panel, .note, .todo, .manager{
 	margin: 0px auto;
 	background: #F1F2E9;
 	padding: 0px;
@@ -153,7 +153,7 @@ hr
 	text-transform: uppercase;
 }
 
-.panel-header, .note-header
+.panel-header, .note-header, .todo-header, .manager-header
 {
 	text-align:left;
 	background: #F1F2E9;
@@ -163,7 +163,7 @@ hr
 	border-radius: 5px;
 }
 
-#login .login-body, .panel-body, .note-body
+#login .login-body, .panel-body, .note-body, .todo-body, .manager-body
 {
 	background: #FFF;
 	padding: 0px 5px;

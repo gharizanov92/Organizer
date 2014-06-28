@@ -7,6 +7,57 @@
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
 <link href="/css/default.css" rel="stylesheet" type="text/css" media="all" />
+<script src="js/jquery.min.js"></script>
+
+<script>
+
+	$(document).ready(function(){
+
+		//no pun intended
+		$(".manager-body").hide();
+		$(".manager-header").click(function(){
+			$(this).parent().find('.manager-body').slideToggle();
+		});
+
+		$("#reports_form").submit(function( event ) {
+			event.preventDefault();
+		 	$.ajax({
+			    type:'POST',
+			    url:'/reports/add',
+			    data:{"category":$("#category").val(), "amount":$("#amount").val()},
+			    success: function(){
+			    	window.location.href = "manager";
+			    }
+			});
+	 	});
+
+		$("#new_category").click(function() {
+			console.log($(this).is(':checked'))
+			if($(this).is(':checked')){
+				$("#category").remove();
+				$("#category_holder").append('<input id="category" type="text" name="category"/>')
+			} else {
+				$.ajax({
+				    type:'GET',
+				    url:'/categories/all',
+				    data:{"category":$("#category").val(), "amount":$("#amount").val()},
+				    success: function(data){
+						$("#category").remove();
+						categories = eval(data);
+						html = '<select id="category" name="category">'
+						for(category in categories){
+							html += '<option value="' + categories[category] + '">' + categories[category] + '</option>';
+						}
+						html += '</select>'
+						$("#category_holder").append(html);
+				    }
+				});
+			}
+		})
+	});
+
+</script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -14,7 +65,6 @@
 		<div id="header">
 			<div id="menu">
 				<ul>
-					<li><a href="index" accesskey="1" title="">Начало</a></li>
 					<li><a href="notes" accesskey="2" title="">Бележки</a></li>
 					<li><a href="todo" accesskey="3" title="">TODO</a></li>
 					<li><a href="files" accesskey="3" title="">Файлове</a></li>
@@ -32,14 +82,79 @@
 							<strong>Manager</strong>
 						</div>
 						<div class="panel-body">
-							<p><strong>Описание</strong></p>
-							<p>
-								Ще представлява финансов мениджър, т.е. добавяне на суми по някаква категория. Ще могат да се правят дневни и месечни отчети.
-							</p>
-							<p><strong>Реализация</strong></p>
-							<p>
-								Подобно на бележките, ще бъде направен REST сървис, позволяващ добавянето, извличането на информация и даващ справка.
-							</p>
+
+							<form id="reports_form" method = "POST" action = "reports/add">
+								<table>
+									<tr>
+										<td>
+											<p>Category: </p>
+											<input id="new_category" type="checkbox" value="New"/>New
+											<div id="category_holder">
+												<select id="category" name="category">
+													% for category in categories:
+														<option value="${category}">${category}</option>
+													% endfor
+												</select>
+												<!--<input id="category" type="text" name="category"/>-->
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>Amount: </p>
+											<input id="amount" name = "amount"></input>
+										</td>
+									<tr/>
+									<tr>
+										<td>
+											<input type="submit" value="Add entry"/>
+										</td>
+									</tr>
+								</table>
+							</form>
+							<div class="report" style="width: 600px">
+								<div class="manager-header">
+									Report for today
+								</div>
+								<div class="manager-body">
+									<p><strong>TOTAL: ${daily_report['total']}</strong></p>
+									% for report in daily_report['entries']:
+										<div style="width: 600px">
+											<span style="width:35%; display:inline-block">
+												${report['category']}  
+											</span>
+											<span style="width:25%; display:inline-block">
+												${report['amount']}  
+											</span>
+											<span style="display:inline-block">
+												${report['day']}.${report['month']}.${report['year']}
+											</span>
+										</div>
+									% endfor
+								</div>
+							</div>
+
+							<div class="report" style="width: 600px">
+								<div class="manager-header">
+									Report for this month
+								</div>
+								<div class="manager-body">
+									<p><strong>TOTAL: ${monthly_report['total']}</strong></p>
+									% for report in monthly_report['entries']:
+										<div style="width: 600px">
+											<span style="width:35%; display:inline-block">
+												${report['category']}  
+											</span>
+											<span style="width:25%; display:inline-block">
+												${report['amount']}  
+											</span>
+											<span style="display:inline-block">
+												${report['day']}.${report['month']}.${report['year']}
+											</span>
+										</div>
+									% endfor
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

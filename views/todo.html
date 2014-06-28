@@ -7,6 +7,41 @@
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
 <link href="/css/default.css" rel="stylesheet" type="text/css" media="all" />
+<script src="js/jquery.min.js"></script>
+<script>
+
+	$(document).ready(function(){
+
+		$("#todos_form").submit(function( event ) {
+			console.log("test");
+			event.preventDefault();
+		 	$.ajax({
+			    type:'POST',
+			    url:'/todos/add',
+			    data:{"text":$("#text").val()},
+			    success: function(){
+			    	window.location.href = "todo";
+			    }
+			});
+	 	});
+
+		$(".todo-body p").dblclick(function() {
+			todo = $(this).parent().parent();
+			text = $(this).find(".todo-body p").text();
+			id = $(todo).find(".todo-header").attr("id");
+			console.log(id);
+			$.ajax({
+		    	type:'POST',		
+			    url:'/todos/delete/' + id,
+			    data:{"text":text},
+			    success: function(){
+			    	$(todo).remove();
+			    }
+			});
+		})
+	});
+</script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -14,7 +49,6 @@
 		<div id="header">
 			<div id="menu">
 				<ul>
-					<li><a href="index" accesskey="1" title="">Начало</a></li>
 					<li><a href="notes" accesskey="2" title="">Бележки</a></li>
 					<li class="current_page_item"><a href="todo" accesskey="3" title="">TODO</a></li>
 					<li><a href="files" accesskey="3" title="">Файлове</a></li>
@@ -32,15 +66,39 @@
 							<strong>TODO</strong>
 						</div>
 						<div class="panel-body">
-							<p><strong>Описание</strong></p>
-							<p>
-								На практика това ще е частен случай на модула "Бележки". Целта на този модул е по-скоро категоризация. Ще се различава от "Бележки" по това, че TODO са временни бележки, които ще могат да бъдат отбелязвани като "готови", при което няма да се показват. Евентуално ще има отметка за показване и на изпълнените TODO-та. 
-							</p>
+							<p><strong>Double click a TODO to remove it</strong></p>
+							<form id="todos_form" method = "POST" action = "todos/add">
+								<table>
+									<tr>
+										<td>
+											<textarea id="text" rows="4" cols="50" name = "text"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="submit" value="Add TODO"/>
+										</td>
+									</tr>
+								</table>
+							</form>
 							<br/>
-							<div class="note" style="width: 600px">
-								<div class="note-header">
+
+							% for todo in todos:
+								<div class="todo" style="width: 600px">
+									<div id="${todo['_id']}" class="todo-header">
+									</div>
+									<div class="todo-body">
+										<p>
+											${todo['text']}
+										</p>
+									</div>
 								</div>
-								<div class="note-body"><p>
+							% endfor
+
+							<div class="todo" style="width: 600px">
+								<div class="todo-header">
+								</div>
+								<div class="todo-body"><p>
 									Pay the rent today @3:00 PM
 								</p></div>
 							</div>

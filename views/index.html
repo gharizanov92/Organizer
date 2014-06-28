@@ -8,20 +8,33 @@
 <link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
 <link href="/css/default.css" rel="stylesheet" type="text/css" media="all" />
 <script src="js/jquery.min.js"></script>
+
+<script>
+
+	$(document).ready(function(){
+		$("#register").click(function(e){
+			e.preventDefault();
+			$.ajax({
+				type:"POST",
+				url:"register",
+				"data":{
+					"username":$("#username").val(),
+					"password":$("#password").val(),
+				},
+				success: function(){
+					alert("Registration successful!");
+				}
+			})
+		});
+	});
+
+</script>
+
 </head>
 <body>
 <div id="wrapper">
 	<div id="header-wrapper">
 		<div id="header">
-			<div id="menu">
-				<ul>
-					<li class="current_page_item"><a href="#" accesskey="1" title="">Начало</a></li>
-					<li><a href="notes" accesskey="2" title="">Бележки</a></li>
-					<li><a href="todo" accesskey="3" title="">TODO</a></li>
-					<li><a href="files" accesskey="3" title="">Файлове</a></li>
-					<li><a href="manager" accesskey="4" title="">Manager</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>
 	<div id="page-wrapper">
@@ -36,33 +49,33 @@
 							<p>
 								Проектът ще представлява web органайзер. Ше има модули "Бележки", "TODO", "Файлове" и Manager, като по-подобна информация за всеки един от тях може да се открие на съответните линкове. Като технологии ще се използва django, за база - MongoDB и за frontend AngularJS (за странициране) и jQuerry. Текущия темплейт е просто примерен, може и да не използвам него за крайния проект.
 							</p>
-							<p>
-								Системата ще поддържа акаунти. Паролата ще се държи хеширана в базата. Примерен изглед:
-							</p>
 							<div class="center">
 								<div id="login">
-									<div class="login-header"><strong>Вход в системата</strong></div>
-									<div class="login-body">
-										<table style = "border-width: 1px" class = "align-left">
-											<tr>
-												<td>Потребителско име: </td>
-												<td>
-													<div location = "username"/>
-													<input type="text"/>
-												</td>
-											</tr>
-											<tr>
-												<td>Парола:</td>
-												<td>
-													<div location = "password"/>
-													<input type="password"/>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div class="login-footer">
-										<div location = "loginbutton"/>
-									</div>
+									<form action="login" method = "POST">
+										<div class="login-header"><strong>Вход в системата</strong></div>
+										<div class="login-body">
+											<table style = "border-width: 1px" class = "align-left">
+												<tr>
+													<td>Потребителско име: </td>
+													<td>
+														<div location = "username"/>
+														<input id="username" name="username" type="text"/>
+													</td>
+												</tr>
+												<tr>
+													<td>Парола:</td>
+													<td>
+														<div location = "password"/>
+														<input id="password" name="password" type="password"/>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div class="login-footer">
+											<input type="submit" value="login"/>
+											<button id="register"/>Register
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>

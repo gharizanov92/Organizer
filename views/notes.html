@@ -5,23 +5,68 @@
 <meta name="description" content="" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <script src="js/jquery.min.js"></script>
-<link href="/css/default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
 <script>
+
 	$(document).ready(function(){
+
+		$("#notes_form").submit(function( event ) {
+			console.log("test");
+			event.preventDefault();
+		 	$.ajax({
+			    type:'POST',
+			    url:'/notes/add',
+			    data:{"caption":$("#caption").val(), "body":$("#body").val()},
+			    success: function(){
+			    	window.location.href = "notes"
+			    }
+			});
+	 	});
+
 		$(".note-body").hide();
 		$(".note-header").click(function(){
 			$(this).parent().find('.note-body').slideToggle();
 		});
+
 		$(".note-body p").dblclick(function() {
 			$(this).hide();
 			console.log($(this));
-			$(this).parent().append("<textarea>"+ $(this).text() +"</textarea>");
+			note = $(this).parent().parent()
+			$(this).parent().prepend("<textarea cols='71' rows='5'>"+ $(this).text().trim() +"</textarea>");
+			$(note).find("textarea").dblclick(function(){
+				id = $(this).parent().find("tr").attr("id");
+				body = $(this).val();
+				caption = $(this).parent().parent().find(".note-header").text().trim();
+				$.ajax({
+			    	type:'POST',		
+				    url:'/notes/update/' + id,
+				    data:{"caption":caption, "body":body},
+				    success: function(){
+				    	$("#"+id).parent().parent().parent().parent().find("p").text(body);
+				    	$("#"+id).parent().parent().parent().parent().find("p").show();
+				    	$("#"+id).parent().parent().parent().parent().find("textarea").remove();
+				    }
+				});
+			});
+		})
+
+		$(".remove_note").click(function(){
+			id = $(this).parent().parent().attr("id");
+		 	$.ajax({
+			    type:'POST',
+			    url:'/notes/remove/' + id,
+			    data:{"caption":$("#caption").val(), "body":$("#body").val()},
+			    success: function(){
+			    	console.log("success");
+			    	$("#"+id).parent().parent().parent().parent().remove()
+			    }
+			});
 		})
 	});
 </script>
 <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 
@@ -30,7 +75,6 @@
 		<div id="header">
 			<div id="menu">
 				<ul>
-					<li><a href="index" accesskey="1" title="">Начало</a></li>
 					<li class="current_page_item"><a href="#" accesskey="2" title="">Бележки</a></li>
 					<li><a href="todo" accesskey="3" title="">TODO</a></li>
 					<li><a href="files" accesskey="3" title="">Файлове</a></li>
@@ -48,13 +92,49 @@
 							<strong>Бележки</strong>
 						</div>
 						<div class="panel-body">
-							<form method = "POST" action = "notes/add">
-								<label>Caption: </label>
-								<input type="text" name="caption"/>
-
-								<label>Body: </label>
-								<textarea rows="4" cols="50" name = "body"></textarea>
+							<form id="notes_form" method = "POST" action = "notes/add">
+								<table>
+									<tr>
+										<td>
+											<p>Caption: </p>
+											<input id="caption" type="text" name="caption"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>Body: </p>
+											<textarea id="body" rows="4" cols="50" name = "body"></textarea>
+										</td>
+									<tr/>
+									<tr>
+										<td>
+											<input type="submit" value="Add note"/>
+										</td>
+									</tr>
+								</table>
 							</form>
+
+							% for note in notes:
+								<div class="note" style="width: 600px">
+									<div class="note-header">
+										${note['caption']}
+									</div>
+									<div class="note-body">
+									<p>
+										${note['body']}
+									</p>
+									<table>
+										<tr id="${note['_id']}">
+											<td>
+												<button class="remove_note">Remove</button>
+											</td>
+										</tr>
+									</table>
+									</div>
+
+								</div>
+							% endfor
+<!--
 							<div class="note" style="width: 600px">
 								<div class="note-header">
 									Lorem ipsum
@@ -83,6 +163,7 @@
 									</p>
 								</div>
 							</div>
+							-->
 						</div>
 					</div>
 				</div>
